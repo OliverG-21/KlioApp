@@ -1,0 +1,108 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:KlioApp.UI.ViewModels"
+        xmlns:views="using:KlioApp.UI.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
+        x:Class="KlioApp.UI.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="Klio" Width="1200" Height="800"
+        MinWidth="900" MinHeight="600">
+
+    <DockPanel>
+        <!-- Toolbar -->
+        <Border DockPanel.Dock="Top" Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                Padding="8,6">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Text="Klio" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                <Separator Width="1" Height="20" Background="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                <Button Command="{Binding RefreshAlbumsCommand}" ToolTip.Tip="Album-Baum neu laden">
+                    Aktualisieren
+                </Button>
+                <Button Command="{Binding AddToUploadQueueCommand}"
+                        IsEnabled="{Binding CanAddToQueue}"
+                        ToolTip.Tip="Album [A] + Dateien auswählen, dann zur Warteschlange hinzufügen">
+                    ➕ Zur Warteschlange
+                </Button>
+                <Button Command="{Binding AutoTagQueueCommand}"
+                        IsEnabled="{Binding OllamaVM.IsTagging, Converter={x:Static BoolConverters.Not}}"
+                        IsVisible="{Binding UploadVM.HasPendingItems}"
+                        ToolTip.Tip="Wartende Bilder via lokales Ollama auto-taggen (optional)">
+                    🏷 Auto-Tag
+                </Button>
+                <Button Command="{Binding UploadVM.StartUploadCommand}"
+                        IsEnabled="{Binding UploadVM.HasPendingItems}"
+                        IsVisible="{Binding UploadVM.HasPendingItems}"
+                        ToolTip.Tip="Alle wartenden Dateien hochladen">
+                    ⬆ Upload starten
+                </Button>
+                <StackPanel.Styles>
+                    <Style Selector="Separator"/>
+                </StackPanel.Styles>
+                <!-- spacer -->
+                <Panel HorizontalAlignment="Stretch"/>
+                <Button Command="{Binding ToggleSettingsCommand}" ToolTip.Tip="Verbindungseinstellungen">
+                    Einstellungen
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <!-- Settings panel (collapsible) -->
+        <Border DockPanel.Dock="Top" IsVisible="{Binding ShowSettings}"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                BorderThickness="0,0,0,1" Padding="12,8">
+            <views:ConnectionSettingsView DataContext="{Binding ConnectionVM}"/>
+        </Border>
+
+        <!-- Log panel (bottom) -->
+        <Border DockPanel.Dock="Bottom" Height="120"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                BorderThickness="0,1,0,0"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+            <DockPanel>
+                <Border DockPanel.Dock="Top" Padding="8,4,8,2">
+                    <TextBlock Text="Log" FontSize="11" FontWeight="SemiBold"
+                               Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                </Border>
+                <ListBox ItemsSource="{Binding LogEntries}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         Background="Transparent" BorderThickness="0"
+                         Padding="4,0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="vm:LogEntry">
+                            <TextBlock Text="{Binding Display}" FontSize="11" FontFamily="Monospace"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                       TextTrimming="CharacterEllipsis"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.Styles>
+                        <Style Selector="ListBoxItem">
+                            <Setter Property="Padding" Value="4,1"/>
+                            <Setter Property="MinHeight" Value="0"/>
+                        </Style>
+                    </ListBox.Styles>
+                </ListBox>
+            </DockPanel>
+        </Border>
+
+        <!-- Main content: 3-column layout -->
+        <Grid ColumnDefinitions="280,Auto,*,Auto,*">
+            <!-- Left: Album tree -->
+            <views:AlbumTreeView Grid.Column="0" DataContext="{Binding AlbumTreeVM}"/>
+
+            <GridSplitter Grid.Column="1" Width="4" ResizeBehavior="PreviousAndNext"/>
+
+            <!-- Middle: Local file browser -->
+            <views:FileBrowserView Grid.Column="2" DataContext="{Binding FileBrowserVM}"
+                                   x:Name="FileBrowserViewInstance"/>
+
+            <GridSplitter Grid.Column="3" Width="4" ResizeBehavior="PreviousAndNext"/>
+
+            <!-- Right: Upload queue -->
+            <views:UploadQueueView Grid.Column="4" DataContext="{Binding UploadVM}"/>
+        </Grid>
+    </DockPanel>
+
+</Window>

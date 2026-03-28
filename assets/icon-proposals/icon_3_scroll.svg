@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background -->
+  <rect width="512" height="512" rx="110" ry="110" fill="#194C79"/>
+
+  <!-- Scroll body -->
+  <rect x="120" y="145" width="272" height="222" rx="8" fill="white" opacity="0.95"/>
+
+  <!-- Scroll top curl -->
+  <ellipse cx="256" cy="145" rx="136" ry="28" fill="white"/>
+  <ellipse cx="256" cy="145" rx="96" ry="18" fill="#194C79"/>
+
+  <!-- Scroll bottom curl -->
+  <ellipse cx="256" cy="367" rx="136" ry="28" fill="white"/>
+  <ellipse cx="256" cy="367" rx="96" ry="18" fill="#194C79"/>
+
+  <!-- K on the scroll -->
+  <g fill="#194C79">
+    <!-- vertical bar of K -->
+    <rect x="175" y="185" width="38" height="142" rx="6"/>
+    <!-- upper arm -->
+    <polygon points="213,256 315,185 278,185 182,242"/>
+    <!-- lower arm -->
+    <polygon points="213,256 315,327 278,327 182,270"/>
+  </g>
+
+  <!-- Subtle lines on scroll (like text lines) -->
+  <g stroke="#194C79" stroke-width="3" opacity="0.12">
+    <line x1="145" y1="210" x2="367" y2="210"/>
+    <line x1="145" y1="300" x2="367" y2="300"/>
+  </g>
+</svg>

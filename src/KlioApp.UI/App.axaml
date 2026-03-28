@@ -1,0 +1,24 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="KlioApp.UI.App"
+             xmlns:local="using:KlioApp.UI"
+             RequestedThemeVariant="Default">
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme />
+    </Application.Styles>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="SystemAccentColor">#194C79</Color>
+            <Color x:Key="SystemAccentColorLight1">#2A6FAD</Color>
+            <Color x:Key="SystemAccentColorLight2">#3A8FD4</Color>
+            <Color x:Key="SystemAccentColorDark1">#123758</Color>
+            <Color x:Key="SystemAccentColorDark2">#0C2538</Color>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

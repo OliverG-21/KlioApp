@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background: rounded square -->
+  <rect width="512" height="512" rx="110" ry="110" fill="#194C79"/>
+
+  <!-- Letter K -->
+  <g fill="white">
+    <!-- vertical bar -->
+    <rect x="145" y="130" width="68" height="252" rx="10"/>
+    <!-- upper diagonal arm -->
+    <polygon points="213,256 370,130 300,130 152,240"/>
+    <!-- lower diagonal arm -->
+    <polygon points="213,256 370,382 300,382 152,272"/>
+  </g>
+</svg>

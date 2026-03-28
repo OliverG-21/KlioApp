@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background -->
+  <rect width="512" height="512" rx="110" ry="110" fill="#194C79"/>
+
+  <!-- 3x3 photo grid, one cell highlighted -->
+  <g>
+    <!-- Row 1 -->
+    <rect x="88"  y="88"  width="98" height="98" rx="12" fill="white" opacity="0.25"/>
+    <rect x="207" y="88"  width="98" height="98" rx="12" fill="white" opacity="0.25"/>
+    <rect x="326" y="88"  width="98" height="98" rx="12" fill="white" opacity="0.25"/>
+
+    <!-- Row 2 -->
+    <rect x="88"  y="207" width="98" height="98" rx="12" fill="white" opacity="0.25"/>
+    <!-- Center cell: highlighted/accent -->
+    <rect x="207" y="207" width="98" height="98" rx="12" fill="white"/>
+    <rect x="326" y="207" width="98" height="98" rx="12" fill="white" opacity="0.25"/>
+
+    <!-- Row 3 -->
+    <rect x="88"  y="326" width="98" height="98" rx="12" fill="white" opacity="0.25"/>
+    <rect x="207" y="326" width="98" height="98" rx="12" fill="white" opacity="0.25"/>
+    <rect x="326" y="326" width="98" height="98" rx="12" fill="white" opacity="0.25"/>
+  </g>
+
+  <!-- K in center cell -->
+  <text x="256" y="273" font-family="Arial, sans-serif" font-size="62" font-weight="bold"
+        fill="#194C79" text-anchor="middle">K</text>
+</svg>

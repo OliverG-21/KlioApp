@@ -1,0 +1,52 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:KlioApp.UI.ViewModels"
+             x:Class="KlioApp.UI.Views.FileBrowserView"
+             x:DataType="vm:FileBrowserViewModel">
+
+    <DockPanel>
+        <!-- Header -->
+        <Border DockPanel.Dock="Top" Padding="8,6"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                BorderThickness="0,0,0,1">
+            <StackPanel Spacing="6">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBlock Text="Lokale Dateien" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                    <Button x:Name="BrowseButton" ToolTip.Tip="Ordner öffnen">
+                        Ordner wählen...
+                    </Button>
+                </StackPanel>
+                <TextBlock Text="{Binding CurrentFolder}"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                           TextTrimming="CharacterEllipsis"
+                           IsVisible="{Binding CurrentFolder, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBlock Text="{Binding SelectedCount, StringFormat='{}{0} ausgewählt'}"
+                               VerticalAlignment="Center"/>
+                    <Button Command="{Binding SelectAllCommand}">Alle</Button>
+                    <Button Command="{Binding SelectNoneCommand}">Keine</Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- File list -->
+        <ListBox DockPanel.Dock="Bottom" ItemsSource="{Binding Files}" SelectionMode="Multiple">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="vm:FileItemViewModel">
+                    <Grid ColumnDefinitions="Auto,*,Auto,Auto" Margin="0,2">
+                        <CheckBox Grid.Column="0" IsChecked="{Binding IsSelected}" Margin="0,0,8,0"/>
+                        <TextBlock Grid.Column="1" Text="{Binding FileName}" VerticalAlignment="Center"
+                                   TextTrimming="CharacterEllipsis"/>
+                        <TextBlock Grid.Column="2" Text="{Binding FileSizeText}" VerticalAlignment="Center"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                   Margin="8,0" Width="70" TextAlignment="Right"/>
+                        <TextBlock Grid.Column="3" Text="{Binding LastModified, StringFormat='{}{0:dd.MM.yy}'}"
+                                   VerticalAlignment="Center" Width="60" TextAlignment="Right"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+
+</UserControl>

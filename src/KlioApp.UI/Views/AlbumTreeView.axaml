@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:KlioApp.UI.ViewModels"
+             x:Class="KlioApp.UI.Views.AlbumTreeView"
+             x:DataType="vm:AlbumTreeViewModel">
+
+    <DockPanel>
+        <Border DockPanel.Dock="Top" Padding="8,6"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                BorderThickness="0,0,0,1">
+            <StackPanel Spacing="6">
+                <TextBlock Text="Alben" FontWeight="SemiBold"/>
+                <TextBlock Text="{Binding ErrorMessage}" Foreground="Red"
+                           IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                <TextBlock Text="Lade..." IsVisible="{Binding IsLoading}"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                <Grid ColumnDefinitions="*,Auto,Auto" RowDefinitions="Auto" Margin="0,4,0,0">
+                    <TextBox Grid.Column="0" Text="{Binding NewItemName}" Watermark="Name..."
+                             x:Name="NewItemNameBox"/>
+                    <Button Grid.Column="1" Command="{Binding CreateAlbumCommand}"
+                            Margin="4,0,2,0" ToolTip.Tip="Neues Album">
+                        +A
+                    </Button>
+                    <Button Grid.Column="2" Command="{Binding CreateFolderCommand}"
+                            ToolTip.Tip="Neuen Ordner">
+                        +O
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <TreeView DockPanel.Dock="Bottom" ItemsSource="{Binding RootNodes}"
+                  SelectedItem="{Binding SelectedNode}">
+            <TreeView.ItemTemplate>
+                <TreeDataTemplate DataType="vm:AlbumTreeNodeViewModel"
+                                  ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="[O]" IsVisible="{Binding IsFolder}" Foreground="Gray" FontSize="11"/>
+                        <TextBlock Text="[A]" IsVisible="{Binding !IsFolder}" Foreground="SteelBlue" FontSize="11"/>
+                        <TextBlock Text="{Binding Name}"/>
+                    </StackPanel>
+                </TreeDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+    </DockPanel>
+
+</UserControl>

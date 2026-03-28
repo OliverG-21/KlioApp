@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/KlioApp.Client/KlioApp.Client.csproj" />
+    <Project Path="src/KlioApp.Core/KlioApp.Core.csproj" />
+    <Project Path="src/KlioApp.Ollama/KlioApp.Ollama.csproj" />
+    <Project Path="src/KlioApp.UI/KlioApp.UI.csproj" />
+  </Folder>
+</Solution>

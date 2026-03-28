@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:KlioApp.UI.ViewModels"
+             x:Class="KlioApp.UI.Views.ConnectionSettingsView"
+             x:DataType="vm:ConnectionViewModel">
+
+    <StackPanel Orientation="Horizontal" Spacing="16">
+        <StackPanel Spacing="4">
+            <TextBlock Text="Server URL"/>
+            <TextBox Text="{Binding ServerUrl}" Width="250" Watermark="http://raspberrypi:5005"/>
+        </StackPanel>
+        <StackPanel Spacing="4">
+            <TextBlock Text="API Key"/>
+            <TextBox Text="{Binding ApiKey}" Width="200" PasswordChar="*"/>
+        </StackPanel>
+        <StackPanel Spacing="4">
+            <TextBlock Text="Ollama URL"/>
+            <TextBox Text="{Binding OllamaUrl}" Width="200" Watermark="http://localhost:11434"/>
+        </StackPanel>
+        <StackPanel Spacing="4" VerticalAlignment="Bottom">
+            <Button Command="{Binding TestAndSaveCommand}" IsEnabled="{Binding !IsTesting}">
+                Testen &amp; Speichern
+            </Button>
+        </StackPanel>
+        <StackPanel Spacing="4" VerticalAlignment="Bottom">
+            <TextBlock Text="{Binding StatusMessage}" IsVisible="{Binding !IsConnected}" Foreground="OrangeRed"/>
+            <TextBlock Text="{Binding StatusMessage}" IsVisible="{Binding IsConnected}" Foreground="Green"/>
+        </StackPanel>
+    </StackPanel>
+
+</UserControl>
